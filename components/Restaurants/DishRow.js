@@ -4,9 +4,27 @@ import Currency from "react-currency-formatter";
 import { urlFor } from "../../sanity";
 import { PlusCircleIcon, MinusCircleIcon } from "react-native-heroicons/solid";
 import { greenColor } from "../../constants";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToBasket,
+  removeFromBasket,
+  selectBasketItemsWithId,
+} from "../../features/basketSlice";
 
 export default function DishRow({ id, name, short_desc, price, image }) {
   const [isPressed, setIsPressed] = useState(false);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => selectBasketItemsWithId(state, id));
+
+  const addItemToBasket = () => {
+    dispatch(addToBasket({ id, name, short_desc, price, image }));
+  };
+
+  const removeItemFromBasket = () => {
+    if (!items.length > 0) return;
+    dispatch(removeFromBasket({ id }));
+  };
+
   return (
     <>
       <TouchableOpacity
@@ -34,18 +52,24 @@ export default function DishRow({ id, name, short_desc, price, image }) {
         </View>
       </TouchableOpacity>
       {isPressed && (
-        <View className="bg-white px4">
+        <View className="bg-white px-4">
           <View className="flex-row items-center space-x-2 pb-3">
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={removeItemFromBasket}
+            //   disabled={items === 0}
+            >
               <MinusCircleIcon
-                // color={items.length > 0 ? greenColor : "gray"}
+                color={items.length > 0 ? greenColor : "gray"}
                 size={40}
               />
             </TouchableOpacity>
-            <Text>0</Text>
-            <TouchableOpacity>
+            <Text>{items.length}</Text>
+            <TouchableOpacity
+              onPress={addItemToBasket}
+              disabled={items.length === 10}
+            >
               <PlusCircleIcon
-                // color={items.length > 0 ? greenColor : "gray"}
+                color={items.length < 10 ? greenColor : "gray"}
                 size={40}
               />
             </TouchableOpacity>
