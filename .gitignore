@@ -9,7 +9,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-sanity-azure-dunlin/
 
 # macOS
 .DS_Store
