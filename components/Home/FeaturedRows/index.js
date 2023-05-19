@@ -25,7 +25,10 @@ export default function FeaturedRows({ id, title, desc }) {
     }[0]`,
         { id }
       )
-      .then((row) => setRestaurants(row?.restaurants));
+      .then((row) => {
+        setRestaurants(row?.restaurants);
+        return;
+      });
   }, [id]);
   return (
     <View>
@@ -53,8 +56,8 @@ export default function FeaturedRows({ id, title, desc }) {
             address={data.address}
             short_desc={data.short_desc}
             dishes={data.dishes}
-            long={data.longitude}
-            lat={data.latitude}
+            long={data.long}
+            lat={data.lat}
           />
         ))}
       </ScrollView>
