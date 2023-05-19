@@ -9,7 +9,7 @@ import {
   addToBasket,
   removeFromBasket,
   selectBasketItemsWithId,
-} from "../../features/basketSlice";
+} from "../../slices/basketSlice";
 
 export default function DishRow({ id, name, short_desc, price, image }) {
   const [isPressed, setIsPressed] = useState(false);
