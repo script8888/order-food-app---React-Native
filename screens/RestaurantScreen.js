@@ -19,11 +19,13 @@ import { greenColor } from "../constants";
 import { QuestionMarkCircleIcon } from "react-native-heroicons/outline";
 import DishRow from "../components/Restaurants/DishRow";
 import BasketIcon from "../components/Restaurants/BasketIcon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setRestaurant } from "../slices/restaurantSlice";
+import { selectBasketItems } from "../slices/basketSlice";
 
 export default function RestaurantScreen() {
   const navigation = useNavigation();
+  const items = useSelector(selectBasketItems);
   const dispatch = useDispatch();
   const {
     params: {
@@ -65,7 +67,7 @@ export default function RestaurantScreen() {
   return (
     <>
       <BasketIcon />
-      <ScrollView>
+      <ScrollView className="bg-white">
         <View>
           <View>
             <Image
@@ -112,8 +114,10 @@ export default function RestaurantScreen() {
           </TouchableOpacity>
         </View>
 
-        <View className="pb-32">
-          <Text className="px-4 pt-6 mb-3 font-bold text-xl">Menu</Text>
+        <View className={`${items.length !== 0 && "pb-28"}`}>
+          <View className="px-4 pt-6 pb-5 bg-gray-100">
+            <Text className="font-bold text-xl">Menu</Text>
+          </View>
           {/* DishRows */}
           {dishes.map((dish) => (
             <DishRow
