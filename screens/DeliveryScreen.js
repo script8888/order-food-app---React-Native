@@ -13,6 +13,7 @@ import { XMarkIcon } from "react-native-heroicons/solid";
 import { greenColor } from "../constants";
 import * as Progress from "react-native-progress";
 import MapView, { Marker } from "react-native-maps";
+import SafeView from "../components/SafeView";
 
 export default function DeliveryScreen() {
   const navigation = useNavigation();
@@ -20,7 +21,7 @@ export default function DeliveryScreen() {
 
   return (
     <View className="bg-[#00CCBB] flex-1">
-      <SafeAreaView className="z-50">
+      <SafeAreaView style={SafeView.AndroidSafeArea} className="z-50">
         <View className="flex-row justify-between items-center p-5">
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <XMarkIcon color={"white"} size={30} />

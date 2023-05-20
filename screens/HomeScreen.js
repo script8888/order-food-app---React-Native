@@ -18,6 +18,7 @@ import { greenColor } from "../constants";
 import Categories from "../components/Home/category/Categories";
 import FeaturedRows from "../components/Home/FeaturedRows";
 import sanityClient from "../sanity";
+import SafeView from "../components/SafeView";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -44,9 +45,12 @@ export default function HomeScreen() {
         setFeaturedCategories(data);
       });
   }, []);
-  
+
   return (
-    <SafeAreaView className="bg-white pt-5">
+    <SafeAreaView
+      style={SafeView.AndroidSafeArea}
+      className="bg-white pt-5"
+    >
       {/* HEADER  */}
       <View className="flex-row pb-3 items-center mx-4 space-x-2">
         <Image

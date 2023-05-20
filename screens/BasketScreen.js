@@ -19,6 +19,7 @@ import { XCircleIcon } from "react-native-heroicons/solid";
 import { greenColor } from "../constants";
 import { urlFor } from "../sanity";
 import Currency from "react-currency-formatter";
+import SafeView from "../components/SafeView";
 
 export default function BasketScreen() {
   const navigation = useNavigation();
@@ -27,6 +28,7 @@ export default function BasketScreen() {
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([]);
   const basketTotal = useSelector(selectBasketTotal);
   const dispatch = useDispatch();
+  const [disabled, setDisabled] = useState(false);
 
   useMemo(() => {
     const groupedItems = items.reduce((results, item) => {
@@ -37,8 +39,12 @@ export default function BasketScreen() {
     setGroupedItemsInBasket(groupedItems);
   }, [items]);
 
+  useEffect(() => {
+    if (items.length === 0) setDisabled(true);
+    else setDisabled(false);
+  }, [items]);
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView style={SafeView.AndroidSafeArea} className="flex-1 bg-white">
       <View className="flex-1 bg-gray-100">
         <View className="p-5 border-b border-[#00CCBB] bg-white shadow-sm">
           <View>
@@ -113,8 +119,11 @@ export default function BasketScreen() {
           </View>
 
           <TouchableOpacity
+            disabled={true}
             onPress={() => navigation.navigate("PreparingOrderScreen")}
-            className="rounded-lg bg-[#00ccbb] p-4"
+            className={`rounded-lg ${
+              disabled ? "bg-gray-300" : "bg-[#00ccbb]"
+            } p-4`}
           >
             <Text className="text-white text-center text-lg font-bold">
               Place Order
