@@ -119,7 +119,7 @@ export default function BasketScreen() {
           </View>
 
           <TouchableOpacity
-            disabled={true}
+            disabled={disabled}
             onPress={() => navigation.navigate("PreparingOrderScreen")}
             className={`rounded-lg ${
               disabled ? "bg-gray-300" : "bg-[#00ccbb]"
