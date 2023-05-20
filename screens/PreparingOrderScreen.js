@@ -10,11 +10,14 @@ export default function PreparingOrderScreen() {
 
   useEffect(() => {
     setTimeout(() => {
-		navigation.navigate("DeliveryScreen")
-	}, 4000);
+      navigation.navigate("DeliveryScreen");
+    }, 4000);
   }, []);
   return (
-    <SafeAreaView style={SafeView.AndroidSafeArea} className="bg-[#00ccbb] flex-1 justify-center items-center">
+    <SafeAreaView
+      style={SafeView.AndroidSafeArea}
+      className="bg-[#00ccbb] flex-1 justify-center items-center"
+    >
       <Animatable.Image
         source={require("../assets/delivery.gif")}
         animation="slideInUp"
